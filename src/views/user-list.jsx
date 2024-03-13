@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const UserList = () => {
+
   const [users, setusers] = useState([]);
   const navigate = useNavigate();
 
@@ -32,7 +33,9 @@ const UserList = () => {
         </thead>
 
         <tbody>
+
           {users.map((user) => {
+
             return (
               <tr key={user.id}>
                 <td>{user.id}</td>
