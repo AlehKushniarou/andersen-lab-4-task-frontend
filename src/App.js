@@ -3,7 +3,6 @@ import UserList from "./components/User/UserList";
 import { Route, Routes } from "react-router-dom";
 import UserEdit from "./components/User/UserEdit";
 import UserAdd from "./components/User/UserAdd";
-import User from "./components/User/User";
 import Header from "./components/Common/Header";
 function App() {
   return (
@@ -16,7 +15,6 @@ function App() {
             <Route path="/" element={<UserList />} />
             <Route path="/users/add" element={<UserAdd />} />
             <Route path="/users/edit/:id" element={<UserEdit />} />
-            <Route path="/user/:id" element={<User />} />
             <Route path="/users" element={<UserList />} />
           </Routes>
 
