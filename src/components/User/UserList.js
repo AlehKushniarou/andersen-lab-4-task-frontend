@@ -13,7 +13,7 @@ const ShowUser = () => {
     console.log("id : -", id);
     setIsLoading(true);
     try {
-      const response = await fetch(userListApi.concat("?id=") + id, {
+      const response = await fetch(userListApi.concat("/") + id, {
         method: "DELETE",
       });
       console.log(response);
