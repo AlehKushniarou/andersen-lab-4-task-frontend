@@ -2,15 +2,15 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const UserList = () => {
-  const [posts, setPosts] = useState([]);
+  const [user, setUser] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://192.168.1.121:8085/hello/users")
+    fetch("http://localhost:8080/person")
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        setPosts(data);
+        setUser(data);
       })
       .catch((err) => {
         console.log(err.message);
@@ -32,7 +32,7 @@ const UserList = () => {
         </thead>
 
         <tbody>
-          {posts.map((post) => {
+          {user.map((post) => {
             return (
               <tr key={post.id}>
                 <td>{post.id}</td>
