@@ -2,15 +2,16 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const UserList = () => {
-  const [user, setUser] = useState([]);
+
+  const [users, setusers] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:8080/person")
+    fetch("http://192.168.1.121:8085/users")
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        setUser(data);
+        setusers(data);
       })
       .catch((err) => {
         console.log(err.message);
@@ -32,15 +33,17 @@ const UserList = () => {
         </thead>
 
         <tbody>
-          {user.map((post) => {
+
+          {users.map((user) => {
+
             return (
-              <tr key={post.id}>
-                <td>{post.id}</td>
-                <td>{post.name}</td>
-                <td>{post.surname}</td>
-                <td>{post.age}</td>
+              <tr key={user.id}>
+                <td>{user.id}</td>
+                <td>{user.name}</td>
+                <td>{user.surname}</td>
+                <td>{user.age}</td>
                 <td>
-                  <button onClick={() => navigate(`/users/edit/${post.id}`)}>
+                  <button onClick={() => navigate(`/users/edit/${user.id}`)}>
                     EDIT
                   </button>
                 </td>
@@ -49,7 +52,7 @@ const UserList = () => {
                     <input
                       type="number"
                       name="id"
-                      value={post.id}
+                      value={user.id}
                       readOnly
                       hidden
                     />
