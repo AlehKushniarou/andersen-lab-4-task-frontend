@@ -1,20 +1,20 @@
 import { useState } from "react";
 import axios from 'axios';
 
-const UserAdd = () => {
+const ActivityAdd = () => {
 
     const [user, setUser] = useState({
-        name: '',
-        surname: '',
-        age: ''
+        description: '',
+        userId: '',
+        dateTime: ''
     });
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:8080/users', user)
+        axios.post('http://localhost:8080/users-activities', user)
             .then(response => {
                 console.log('Successful sending', response.data);
-                window.location.href = '/users';
+                window.location.href = '/users-activities';
             })
             .catch(error => {
                 console.error('Error while sending', error);
@@ -27,39 +27,39 @@ const UserAdd = () => {
         <form onSubmit={handleSubmit}>
             <div>
                 <label>
-                    Name:
+                    Description
                     <input
                         type="text"
-                        name="name"
+                        name="description"
                         value={user.name}
-                        onChange={(e) => setUser({ ...user, name: e.target.value })}
+                        onChange={(e) => setUser({ ...user, description: e.target.value })}
                     />
                 </label>
             </div>
             <div>
                 <label>
-                    Surname:
-                    <input
-                        type="text"
-                        name="surname"
-                        value={user.surname}
-                        onChange={(e) => setUser({ ...user, surname: e.target.value })}
-                    />
-                </label>
-            </div>
-            <div>
-                <label>
-                    Age:
+                    User ID:
                     <input
                         type="number"
-                        name="age"
-                        value={user.age}
-                        onChange={(e) => setUser({ ...user, age: e.target.value })}
+                        name="userId"
+                        value={user.userId}
+                        onChange={(e) => setUser({ ...user, userId: e.target.value })}
                     />
                 </label>
+            </div>
+            <div>
+                {/*<label>*/}
+                    {/*Date and Time:*/}
+                    <input
+                        type="hidden"
+                        name="dateTime"
+                        value={user.dateTime}
+                        onChange={(e) => setUser({ ...user, dateTime: e.target.value })}
+                    />
+                {/*</label>*/}
             </div>
             <button type="submit">Submit</button>
         </form>
     )
 }
-export default UserAdd;
+export default ActivityAdd;

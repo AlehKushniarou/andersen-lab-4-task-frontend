@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Loader from "../Common/Loader";
 
-const ShowUser = () => {
-  const userListApi = "http://localhost:8080/users";
+const ShowActivity = () => {
+  const activitiesListApi = "http://localhost:8080/users-activities";
 
-  const [user, setUser] = useState([]);
+  const [activity, setActivity] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -13,11 +13,11 @@ const ShowUser = () => {
     console.log("id : -", id);
     setIsLoading(true);
     try {
-      const response = await fetch(userListApi.concat("?id=") + id, {
+      const response = await fetch(activitiesListApi.concat("?id=") + id, {
         method: "DELETE",
       });
       console.log(response);
-      setUser(user.filter((item) => item.id !== id));
+      setActivity(activity.filter((item) => item.id !== id));
     } catch (error) {
       setError(error.message);
     } finally {
@@ -30,19 +30,19 @@ const ShowUser = () => {
   }, []);
 
   const getUsers = () => {
-    fetch(userListApi)
+    fetch(activitiesListApi)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        setUser(data);
+        setActivity(data);
       })
       .catch((err) => {
         console.log(err.message);
       });
   };
 
-  if (user.length < 0) {
-    return <h1>no user found</h1>;
+  if (activity.length < 0) {
+    return <h1>No activity found</h1>;
   } else {
     return (
       <div className="mt-5">
@@ -52,22 +52,22 @@ const ShowUser = () => {
           <thead>
             <tr>
               <th>ID</th>
-              <th>Name</th>
-              <th>Surname</th>
-              <th>Age</th>
+              <th>Description</th>
+              <th>Name and Surname of the user</th>
+              <th>Date and Time</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {user?.map((item) => {
+            {activity?.map((item) => {
               return (
                 <tr key={item.id}>
                   <td>{item.id}</td>
-                  <td>{item.name}</td>
-                  <td>{item.surname}</td>
-                  <td>{item.age}</td>
+                  <td>{item.description}</td>
+                  <td>{item.userName}</td>
+                  <td>{item.dateTime}</td>
                   <td>
-                    <Link to={`/users/edit/${item.id}`}>
+                    <Link to={`/users-activities/edit/${item.id}`}>
                       <i className="fa fa-pencil" aria-hidden="true"></i>
                     </Link>
                     {/* <Link to={`/user/${item.id}`}>
@@ -90,4 +90,4 @@ const ShowUser = () => {
   }
 };
 
-export default ShowUser;
+export default ShowActivity;
