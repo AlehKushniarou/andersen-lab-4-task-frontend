@@ -2,24 +2,24 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Loader from "../Common/Loader";
 import "./User.css";
-const EditUser = () => {
-  const [user, setUser] = useState([]);
+const ActivityEdit = () => {
+  const [activity, setActivity] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
-  const getUserApi = "http://localhost:8080/users";
+  const getActivityApi = "http://localhost:8080/users-activities";
 
   useEffect(() => {
     getUser();
   }, []);
 
   const getUser = () => {
-    fetch(getUserApi.concat("/") + id)
+    fetch(getActivityApi.concat("/") + id)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        setUser(data);
+        setActivity(data);
       })
       .catch((err) => {
         console.log(err.message);
@@ -30,25 +30,25 @@ const EditUser = () => {
     e.preventDefault();
     const { name, value } = e.target;
     console.log(name, value);
-    setUser({ ...user, [name]: value });
+    setActivity({ ...activity, [name]: value });
   };
 
   const handelSubmit = (e) => {
     e.preventDefault();
 
-    fetch(getUserApi, {
+    fetch(getActivityApi, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(user),
+      body: JSON.stringify(activity),
     })
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
         setIsLoading(true);
-        navigate("/users");
+        navigate("/users-activities");
       })
       .catch((error) => {
         setError(error.message);
@@ -66,40 +66,40 @@ const EditUser = () => {
       <form onSubmit={handelSubmit}>
         <div className="mb-3">
           <label for="name" className="form-label">
-            Name
+            Description
           </label>
           <input
             type="text"
             className="form-control"
             id="name"
-            name="name"
-            value={user.name}
+            name="description"
+            value={activity.description}
             onChange={handelInput}
           />
         </div>
         <div className="mb-3 mt-3">
           <label for="surname" className="form-label">
-            Surname
+            Name and Surname of user
           </label>
           <input
-            type="surname"
+            type="datetime-local"
             className="form-control"
             id="surname"
-            name="surname"
-            value={user.surname}
+            name="dateTime"
+            value={activity.dateTime}
             onChange={handelInput}
           />
         </div>
         <div className="mb-3">
           <label for="age" className="form-label">
-            Age
+            Date and time
           </label>
           <input
             type="number"
             className="form-control"
             id="age"
-            name="age"
-            value={user.age}
+            name="userId"
+            value={activity.userId}
             onChange={handelInput}
           />
         </div>
@@ -110,4 +110,4 @@ const EditUser = () => {
     </div>
   );
 };
-export default EditUser;
+export default ActivityEdit;
