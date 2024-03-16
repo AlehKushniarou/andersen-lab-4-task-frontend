@@ -1,8 +1,10 @@
 import { useState } from "react";
 import axios from 'axios';
 import './User.css';
+import { Url } from '../../constants/global';
 
 const ActivityAdd = () => {
+    const addActivityApi = `${Url}/users-activities`;
 
     const [user, setUser] = useState({
         description: '',
@@ -12,7 +14,7 @@ const ActivityAdd = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('http://192.168.1.121:8085/users-activities', user)
+        axios.post(addActivityApi, user)
             .then(response => {
                 console.log('Successful sending', response.data);
                 window.location.href = '/users-activities';

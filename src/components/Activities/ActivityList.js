@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Loader from "../Common/Loader";
+import { Url } from '../../constants/global';
 
 const ShowActivity = () => {
-  const activitiesListApi = "http://192.168.1.121:8085/users-activities";
+  const activitiesListApi = `${Url}/users-activities`;
 
   const [activity, setActivity] = useState([]);
   const [isLoading, setIsLoading] = useState(false);

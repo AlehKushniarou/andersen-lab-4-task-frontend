@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Loader from "../Common/Loader";
+import { Url } from '../../constants/global';
 
 const ShowUser = () => {
-  const userListApi = "http://192.168.1.121:8085/users";
+  const userListApi = `${Url}/users`;
 
   const [user, setUser] = useState([]);
   const [isLoading, setIsLoading] = useState(false);

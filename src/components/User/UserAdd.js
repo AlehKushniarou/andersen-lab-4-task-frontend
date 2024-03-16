@@ -1,8 +1,10 @@
 import { useState } from "react";
 import axios from 'axios';
 import './User.css';
+import { Url } from '../../constants/global';
 
 const UserAdd = () => {
+    const addUserApi = `${Url}/users`;
 
     const [user, setUser] = useState({
         name: '',
@@ -12,7 +14,7 @@ const UserAdd = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('http://192.168.1.121:8085/users', user)
+        axios.post(addUserApi, user)
             .then(response => {
                 console.log('Successful sending', response.data);
                 window.location.href = '/users';

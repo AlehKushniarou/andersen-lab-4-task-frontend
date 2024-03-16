@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Loader from "../Common/Loader";
 import "./User.css";
+import { Url } from '../../constants/global';
+
 const EditUser = () => {
   const [user, setUser] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
-  const getUserApi = "http://192.168.1.121:8085/users";
+  const getUserApi = `${Url}/users`;
 
   useEffect(() => {
     getUser();

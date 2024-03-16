@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Loader from "../Common/Loader";
 import "./User.css";
+import { Url } from '../../constants/global';
+
 const ActivityEdit = () => {
   const [activity, setActivity] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
-  const getActivityApi = "http://192.168.1.121:8085/users-activities";
+  const getActivityApi = `${Url}/users-activities`;
 
   useEffect(() => {
     getUser();
@@ -79,7 +81,7 @@ const ActivityEdit = () => {
         </div>
         <div className="mb-3 mt-3">
           <label for="surname" className="form-label">
-            Name and Surname of user
+            Date
           </label>
           <input
             type="datetime-local"
@@ -92,7 +94,7 @@ const ActivityEdit = () => {
         </div>
         <div className="mb-3">
           <label for="age" className="form-label">
-            Date and time
+            User
           </label>
           <input
             type="number"
