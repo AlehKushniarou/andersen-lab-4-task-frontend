@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from 'axios';
+import './User.css';
 
 const ActivityAdd = () => {
 
@@ -11,7 +12,7 @@ const ActivityAdd = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:8080/users-activities', user)
+        axios.post('http://192.168.1.121:8085/users-activities', user)
             .then(response => {
                 console.log('Successful sending', response.data);
                 window.location.href = '/users-activities';
@@ -24,31 +25,34 @@ const ActivityAdd = () => {
 
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label>
-                    Description
-                    <input
-                        type="text"
-                        name="description"
-                        value={user.name}
-                        onChange={(e) => setUser({ ...user, description: e.target.value })}
-                    />
-                </label>
-            </div>
-            <div>
-                <label>
-                    User ID:
-                    <input
-                        type="number"
-                        name="userId"
-                        value={user.userId}
-                        onChange={(e) => setUser({ ...user, userId: e.target.value })}
-                    />
-                </label>
-            </div>
-            <div>
-                {/*<label>*/}
+        <div className='user-form'>
+            <form onSubmit={handleSubmit}>
+                <div className="mb-3">
+                    <label className="form-label">
+                        Description
+                        <input
+                            type="text"
+                            className="form-control"
+                            name="description"
+                            value={user.name}
+                            onChange={(e) => setUser({ ...user, description: e.target.value })}
+                        />
+                    </label>
+                </div>
+                <div className="mb-3 mt-3">
+                    <label className="form-label">
+                        User ID:
+                        <input
+                            type="number"
+                            className="form-control"
+                            name="userId"
+                            value={user.userId}
+                            onChange={(e) => setUser({ ...user, userId: e.target.value })}
+                        />
+                    </label>
+                </div>
+                <div>
+                    {/*<label>*/}
                     {/*Date and Time:*/}
                     <input
                         type="hidden"
@@ -56,10 +60,11 @@ const ActivityAdd = () => {
                         value={user.dateTime}
                         onChange={(e) => setUser({ ...user, dateTime: e.target.value })}
                     />
-                {/*</label>*/}
-            </div>
-            <button type="submit">Submit</button>
-        </form>
+                    {/*</label>*/}
+                </div>
+                <button className="btn btn-primary submit-btn" type="submit">Submit</button>
+            </form>
+        </div>
     )
 }
 export default ActivityAdd;

@@ -8,7 +8,7 @@ const EditUser = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
-  const getUserApi = "http://localhost:8080/users";
+  const getUserApi = "http://192.168.1.121:8085/users";
 
   useEffect(() => {
     getUser();

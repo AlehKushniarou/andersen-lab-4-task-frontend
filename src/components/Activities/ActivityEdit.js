@@ -8,7 +8,7 @@ const ActivityEdit = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
-  const getActivityApi = "http://localhost:8080/users-activities";
+  const getActivityApi = "http://192.168.1.121:8085/users-activities";
 
   useEffect(() => {
     getUser();
