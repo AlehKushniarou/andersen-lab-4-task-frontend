@@ -28,7 +28,7 @@ const ShowActivity = () => {
 
   useEffect(() => {
     getUsers();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const getUsers = () => {
     fetch(activitiesListApi)

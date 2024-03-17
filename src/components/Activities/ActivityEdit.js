@@ -14,7 +14,7 @@ const ActivityEdit = () => {
 
   useEffect(() => {
     getUser();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const getUser = () => {
     fetch(getActivityApi.concat("/") + id)
