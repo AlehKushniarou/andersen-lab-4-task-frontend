@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Loader from "../Common/Loader";
 
 const ShowUser = () => {
-  const userListApi = "http://localhost:8080/users";
+  const userListApi = "http://192.168.100.42:8085/users";
 
   const [user, setUser] = useState([]);
   const [isLoading, setIsLoading] = useState(false);

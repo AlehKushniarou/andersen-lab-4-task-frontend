@@ -11,7 +11,7 @@ const ActivityAdd = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:8080/users-activities', user)
+        axios.post('http://192.168.100.42:8085/users-activities', user)
             .then(response => {
                 console.log('Successful sending', response.data);
                 window.location.href = '/users-activities';
