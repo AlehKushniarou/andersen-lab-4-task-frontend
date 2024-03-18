@@ -79,7 +79,7 @@ const ActivityEdit = () => {
         </div>
         <div className="mb-3 mt-3">
           <label for="surname" className="form-label">
-            Name and Surname of user
+            Date and time
           </label>
           <input
             type="datetime-local"
@@ -92,7 +92,7 @@ const ActivityEdit = () => {
         </div>
         <div className="mb-3">
           <label for="age" className="form-label">
-            Date and time
+            User ID
           </label>
           <input
             type="number"
