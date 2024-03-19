@@ -1,3 +1,3 @@
-const Url = 'http://192.168.1.121:8085'
+const Url = 'http://34.83.136.212:8085'
 
 export { Url }
