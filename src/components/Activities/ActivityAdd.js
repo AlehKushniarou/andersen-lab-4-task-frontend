@@ -1,16 +1,16 @@
-import {useContext, useState} from "react";
+import { useContext, useState } from "react";
 import axios from 'axios';
-import {useNavigate} from "react-router-dom";
-import {FormDataContext} from "../FormDataContext";
+import { useNavigate } from "react-router-dom";
+import { FormDataContext } from "../FormDataContext";
 
 const ActivityAdd = () => {
-    const addActivityApi = `${Url}/users-activities`;
+    //const addActivityApi = `${Url}/users-activities`;
 
     const navigate = useNavigate();
     const { formData, setFormData } = useContext(FormDataContext);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
-    const getActivityApi = "http://localhost:8080/front/UserActivity";
+    const getActivityApi = "http://34.83.136.212:8085/front/UserActivity";
 
     const [userActivity, setUserActivity] = useState([]);
 
@@ -54,18 +54,17 @@ const ActivityAdd = () => {
             </div>
             <div>
                 {/*<label>*/}
-                    {/*Date and Time:*/}
-                    <input
-                        type="hidden"
-                        name="dateTime"
-                        value={userActivity.dateTime}
-                        onChange={(e) => setUserActivity({ ...userActivity, dateTime: e.target.value })}
-                    />
-                    {/*</label>*/}
-                </div>
-                <button className="btn btn-primary submit-btn" type="submit">Submit</button>
-            </form>
-        </div>
+                {/*Date and Time:*/}
+                <input
+                    type="hidden"
+                    name="dateTime"
+                    value={userActivity.dateTime}
+                    onChange={(e) => setUserActivity({ ...userActivity, dateTime: e.target.value })}
+                />
+                {/*</label>*/}
+            </div>
+            <button className="btn btn-primary submit-btn" type="submit">Submit</button>
+        </form>
     )
 }
 export default ActivityAdd;

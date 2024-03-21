@@ -1,10 +1,10 @@
-import React, {useContext, useEffect, useState} from "react";
-import {Link, useNavigate} from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Loader from "../Common/Loader";
-import {FormDataContext} from "../FormDataContext";
+import { FormDataContext } from "../FormDataContext";
 
 const ShowUser = () => {
-  const userListApi = "http://localhost:8080/front/Users";
+  const userListApi = "http://34.83.136.212:8085/front/Users";
   const navigate = useNavigate()
   const [user, setUser] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -17,12 +17,12 @@ const ShowUser = () => {
     setIsLoading(true);
     try {
       const response = await fetch(userListApi.concat("/") + id,
-          {
-                method: "DELETE",
+        {
+          method: "DELETE",
           headers: {
-        'Authorization': 'Basic ' + btoa(`${name}:${password}`)
-        }
-      });
+            'Authorization': 'Basic ' + btoa(`${name}:${password}`)
+          }
+        });
       setUser(user.filter((item) => item.id !== id));
     } catch (error) {
       setError(error.message);

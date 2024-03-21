@@ -1,10 +1,10 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Loader from "../Common/Loader";
 import "./User.css";
-import {FormDataContext} from "../FormDataContext";
+import { FormDataContext } from "../FormDataContext";
 const EditUser = () => {
-  const userListApi = "http://localhost:8080/front/Users";
+  const userListApi = "http://34.83.136.212:8085/front/Users";
   const { formData } = useContext(FormDataContext);
   const [user, setUser] = useState([]);
   const [error, setError] = useState(null);
@@ -19,12 +19,12 @@ const EditUser = () => {
   const getUser = () => {
     const { name, password } = formData;
     fetch(userListApi.concat("/") + id,
-        {
-          method: "GET",
-          headers: {
-            'Authorization': 'Basic ' + btoa(`${name}:${password}`)
-          }
-        })
+      {
+        method: "GET",
+        headers: {
+          'Authorization': 'Basic ' + btoa(`${name}:${password}`)
+        }
+      })
       .then((response) => response.json())
       .then((data) => {
         console.log(data);

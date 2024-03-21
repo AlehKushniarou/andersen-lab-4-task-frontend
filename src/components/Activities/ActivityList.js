@@ -1,10 +1,10 @@
-import React, {useContext, useEffect, useState} from "react";
-import {Link, useNavigate} from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Loader from "../Common/Loader";
-import {FormDataContext} from "../FormDataContext";
+import { FormDataContext } from "../FormDataContext";
 
 const ShowActivity = () => {
-  const activitiesListApi = "http://localhost:8080/front/UserActivity";
+  const activitiesListApi = "http://34.83.136.212:8085/front/UserActivity";
   const { formData } = useContext(FormDataContext);
   const navigate = useNavigate()
   const [activity, setActivity] = useState([]);
@@ -17,12 +17,12 @@ const ShowActivity = () => {
     setIsLoading(true);
     try {
       const response = await fetch(activitiesListApi.concat("/") + id,
-          {
-            method: "DELETE",
-            headers: {
-              'Authorization': 'Basic ' + btoa(`${name}:${password}`)
-            }
-          });
+        {
+          method: "DELETE",
+          headers: {
+            'Authorization': 'Basic ' + btoa(`${name}:${password}`)
+          }
+        });
       console.log(response);
       setActivity(activity.filter((item) => item.id !== id));
     } catch (error) {
@@ -44,14 +44,14 @@ const ShowActivity = () => {
         'Authorization': 'Basic ' + btoa(`${name}:${password}`)
       }
     })
-        .then((response) => response.json())
-        .then((data) => {
-          setActivity(data);
-        })
-        .catch((err) => {
-          console.log(err);
-          navigate("/login");
-        });
+      .then((response) => response.json())
+      .then((data) => {
+        setActivity(data);
+      })
+      .catch((err) => {
+        console.log(err);
+        navigate("/login");
+      });
   };
 
   if (activity.length < 0) {

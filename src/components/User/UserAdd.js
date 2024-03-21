@@ -14,7 +14,7 @@ const UserAdd = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:8080/front/Users', user)
+        axios.post('http://34.83.136.212:8085/front/Users', user)
             .then(response => {
                 console.log('Successful sending', response.data);
                 window.location.href = '/users';

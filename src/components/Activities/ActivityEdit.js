@@ -1,8 +1,8 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Loader from "../Common/Loader";
 import "./User.css";
-import {FormDataContext} from "../FormDataContext";
+import { FormDataContext } from "../FormDataContext";
 const ActivityEdit = () => {
   let [activity, setActivity] = useState([]);
   const [error, setError] = useState(null);
@@ -10,7 +10,7 @@ const ActivityEdit = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
-  const getActivityApi = "http://localhost:8080/front/UserActivity";
+  const getActivityApi = "http://34.83.136.212:8085/front/UserActivity";
 
   useEffect(() => {
     getUser();
@@ -19,21 +19,21 @@ const ActivityEdit = () => {
   const getUser = () => {
     const { name, password } = formData;
     fetch(getActivityApi.concat("/") + id,
-        {
-          method: "GET",
-          headers: {
-            'Authorization': 'Basic ' + btoa(`${name}:${password}`)
-          }
-        })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-          setActivity(data);
-        })
-        .catch((err) => {
-          console.log(err.message);
-          navigate("/login");
-        });
+      {
+        method: "GET",
+        headers: {
+          'Authorization': 'Basic ' + btoa(`${name}:${password}`)
+        }
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setActivity(data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+        navigate("/login");
+      });
   };
 
   const handelInput = (e) => {
@@ -55,19 +55,19 @@ const ActivityEdit = () => {
       },
       body: JSON.stringify(activity),
     })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Network response was not ok");
-          }
-          setIsLoading(true);
-          navigate("/users-activities");
-        })
-        .catch((error) => {
-          setError(error.message);
-          console.log(error.message);
-          setIsLoading(false);
-          navigate("/login");
-        })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        setIsLoading(true);
+        navigate("/users-activities");
+      })
+      .catch((error) => {
+        setError(error.message);
+        console.log(error.message);
+        setIsLoading(false);
+        navigate("/login");
+      })
   };
 
   return (
