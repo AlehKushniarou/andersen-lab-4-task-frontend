@@ -1,7 +1,10 @@
 import { useState } from "react";
 import axios from 'axios';
+import './User.css';
+import { Url } from '../../constants/global';
 
 const UserAdd = () => {
+    const addUserApi = `${Url}/users`;
 
     const [user, setUser] = useState({
         name: '',
@@ -24,42 +27,47 @@ const UserAdd = () => {
 
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label>
-                    Name:
-                    <input
-                        type="text"
-                        name="name"
-                        value={user.name}
-                        onChange={(e) => setUser({ ...user, name: e.target.value })}
-                    />
-                </label>
-            </div>
-            <div>
-                <label>
-                    Surname:
-                    <input
-                        type="text"
-                        name="surname"
-                        value={user.surname}
-                        onChange={(e) => setUser({ ...user, surname: e.target.value })}
-                    />
-                </label>
-            </div>
-            <div>
-                <label>
-                    Age:
-                    <input
-                        type="number"
-                        name="age"
-                        value={user.age}
-                        onChange={(e) => setUser({ ...user, age: e.target.value })}
-                    />
-                </label>
-            </div>
-            <button type="submit">Submit</button>
-        </form>
+        <div className='user-form'>
+            <form onSubmit={handleSubmit}>
+                <div className="mb-3">
+                    <label className="form-label">
+                        Name:
+                        <input
+                            type="text"
+                            className="form-control"
+                            name="name"
+                            value={user.name}
+                            onChange={(e) => setUser({ ...user, name: e.target.value })}
+                        />
+                    </label>
+                </div>
+                <div className="mb-3 mt-3">
+                    <label className="form-label">
+                        Surname:
+                        <input
+                            type="text"
+                            className="form-control"
+                            name="surname"
+                            value={user.surname}
+                            onChange={(e) => setUser({ ...user, surname: e.target.value })}
+                        />
+                    </label>
+                </div>
+                <div className="mb-3">
+                    <label className="form-label">
+                        Age:
+                        <input
+                            type="number"
+                            className="form-control"
+                            name="age"
+                            value={user.age}
+                            onChange={(e) => setUser({ ...user, age: e.target.value })}
+                        />
+                    </label>
+                </div>
+                <button className="btn btn-primary submit-btn" type="submit">Submit</button>
+            </form>
+        </div>
     )
 }
 export default UserAdd;

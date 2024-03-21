@@ -4,6 +4,7 @@ import {useNavigate} from "react-router-dom";
 import {FormDataContext} from "../FormDataContext";
 
 const ActivityAdd = () => {
+    const addActivityApi = `${Url}/users-activities`;
 
     const navigate = useNavigate();
     const { formData, setFormData } = useContext(FormDataContext);
@@ -60,10 +61,11 @@ const ActivityAdd = () => {
                         value={userActivity.dateTime}
                         onChange={(e) => setUserActivity({ ...userActivity, dateTime: e.target.value })}
                     />
-                {/*</label>*/}
-            </div>
-            <button type="submit">Submit</button>
-        </form>
+                    {/*</label>*/}
+                </div>
+                <button className="btn btn-primary submit-btn" type="submit">Submit</button>
+            </form>
+        </div>
     )
 }
 export default ActivityAdd;

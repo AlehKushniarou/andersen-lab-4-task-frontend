@@ -33,7 +33,7 @@ const ShowUser = () => {
 
   useEffect(() => {
     getUsers();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const getUsers = () => {
     const { name, password } = formData;
