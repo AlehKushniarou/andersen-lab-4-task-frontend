@@ -1,12 +1,13 @@
-import React, {useContext, useState} from "react";
-import axios from 'axios';
-import {FormDataContext} from "../FormDataContext";
+import React, { useContext, useState } from "react";
+//import axios from 'axios';
+import { FormDataContext } from "../FormDataContext";
 import { useNavigate } from 'react-router-dom';
 const Login = () => {
     const navigate = useNavigate()
     const { formData, setFormData } = useContext(FormDataContext);
-    const [user, setUser] = useState([]);
+    const [setUser] = useState([]);
 
+    // eslint-disable-next-line no-unused-vars
     const getUsers = () => {
         const { name, password } = formData;
 
@@ -43,7 +44,7 @@ const Login = () => {
                             type="text"
                             name="name"
                             value={formData.name}
-                            onChange={(e) => setFormData({...formData, name: e.target.value})}
+                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         />
                     </label>
                 </div>
@@ -54,7 +55,7 @@ const Login = () => {
                             type="text"
                             name="surname"
                             value={formData.password}
-                            onChange={(e) => setFormData({...formData, password: e.target.value})}
+                            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                         />
                     </label>
                 </div>

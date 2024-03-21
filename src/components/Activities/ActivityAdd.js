@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import axios from 'axios';
+//import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { FormDataContext } from "../FormDataContext";
 
@@ -7,9 +7,9 @@ const ActivityAdd = () => {
     //const addActivityApi = `${Url}/users-activities`;
 
     const navigate = useNavigate();
-    const { formData, setFormData } = useContext(FormDataContext);
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState(null);
+    const { formData } = useContext(FormDataContext);
+    const [setIsLoading] = useState(false);
+    const [setError] = useState(null);
     const getActivityApi = "http://34.83.136.212:8085/front/UserActivity";
 
     const [userActivity, setUserActivity] = useState([]);

@@ -1,13 +1,13 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import "./Common.css";
-import {FormDataContext} from "../FormDataContext";
+import { FormDataContext } from "../FormDataContext";
 
 
 export default function Header() {
 
   const { formData } = useContext(FormDataContext);
-  let { name, password } = formData;
+  let { name } = formData;
   name = "Your username is " + name;
   return (
     <div>
@@ -24,7 +24,7 @@ export default function Header() {
           <div className="collapse navbar-collapse" id="mynavbar">
             <ul className="navbar-nav ms-auto">
               <li className="nav-item">
-                <div  className="nav-link">{name}</div>
+                <div className="nav-link">{name}</div>
               </li>
             </ul>
             <ul className="navbar-nav ms-auto">

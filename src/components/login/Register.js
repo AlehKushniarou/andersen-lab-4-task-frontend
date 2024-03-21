@@ -1,9 +1,9 @@
-import React, {useContext, useState} from "react";
+import React, { useContext } from "react";
 import axios from 'axios';
-import {FormDataContext} from "../FormDataContext";
+import { FormDataContext } from "../FormDataContext";
 import { useNavigate } from 'react-router-dom';
 
-const Register= () => {
+const Register = () => {
     const navigate = useNavigate();
     const { formData, setFormData } = useContext(FormDataContext);
 
@@ -32,7 +32,7 @@ const Register= () => {
                         type="text"
                         name="name"
                         value={formData.name}
-                        onChange={(e) => setFormData({...formData, name: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     />
                 </label>
             </div>
@@ -43,7 +43,7 @@ const Register= () => {
                         type="text"
                         name="surname"
                         value={formData.surname}
-                        onChange={(e) => setFormData({...formData, surname: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, surname: e.target.value })}
                     />
                 </label>
             </div>
@@ -54,7 +54,7 @@ const Register= () => {
                         type="text"
                         name="surname"
                         value={formData.password}
-                        onChange={(e) => setFormData({...formData, password: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                     />
                 </label>
             </div>
@@ -65,7 +65,7 @@ const Register= () => {
                         type="number"
                         name="age"
                         value={formData.age}
-                        onChange={(e) => setFormData({...formData, age: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, age: e.target.value })}
                     />
                 </label>
             </div>

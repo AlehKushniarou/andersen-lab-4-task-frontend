@@ -16,7 +16,7 @@ const ShowUser = () => {
     const { name, password } = formData;
     setIsLoading(true);
     try {
-      const response = await fetch(userListApi.concat("/") + id,
+      fetch(userListApi.concat("/") + id,
         {
           method: "DELETE",
           headers: {

@@ -1,10 +1,10 @@
 import { useState } from "react";
 import axios from 'axios';
 import './User.css';
-import { Url } from '../../constants/global';
+//import { Url } from '../../constants/global';
 
 const UserAdd = () => {
-    const addUserApi = `${Url}/users`;
+    //const addUserApi = `${Url}/users`;
 
     const [user, setUser] = useState({
         name: '',
