@@ -1,25 +1,33 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, {useContext, useEffect, useState} from "react";
+import {Link, useNavigate} from "react-router-dom";
 import Loader from "../Common/Loader";
+import {FormDataContext} from "../FormDataContext";
 
 const ShowActivity = () => {
-  const activitiesListApi = "http://192.168.100.42:8085/users-activities";
-
+  const activitiesListApi = "http://localhost:8080/front/UserActivity";
+  const { formData } = useContext(FormDataContext);
+  const navigate = useNavigate()
   const [activity, setActivity] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const handelDelete = async (id) => {
+    const { name, password } = formData;
     console.log("id : -", id);
     setIsLoading(true);
     try {
-      const response = await fetch(activitiesListApi.concat("?id=") + id, {
-        method: "DELETE",
-      });
+      const response = await fetch(activitiesListApi.concat("/") + id,
+          {
+            method: "DELETE",
+            headers: {
+              'Authorization': 'Basic ' + btoa(`${name}:${password}`)
+            }
+          });
       console.log(response);
       setActivity(activity.filter((item) => item.id !== id));
     } catch (error) {
       setError(error.message);
+      navigate("/login");
     } finally {
       setIsLoading(false);
     }
@@ -30,15 +38,20 @@ const ShowActivity = () => {
   }, []);
 
   const getUsers = () => {
-    fetch(activitiesListApi)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setActivity(data);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+    const { name, password } = formData;
+    fetch(activitiesListApi, {
+      headers: {
+        'Authorization': 'Basic ' + btoa(`${name}:${password}`)
+      }
+    })
+        .then((response) => response.json())
+        .then((data) => {
+          setActivity(data);
+        })
+        .catch((err) => {
+          console.log(err);
+          navigate("/login");
+        });
   };
 
   if (activity.length < 0) {
@@ -51,7 +64,6 @@ const ShowActivity = () => {
         <table className="table table-striped">
           <thead>
             <tr>
-              <th>ID</th>
               <th>Description</th>
               <th>Name and Surname of the user</th>
               <th>Date and Time</th>
@@ -62,7 +74,6 @@ const ShowActivity = () => {
             {activity?.map((item) => {
               return (
                 <tr key={item.id}>
-                  <td>{item.id}</td>
                   <td>{item.description}</td>
                   <td>{item.userName}</td>
                   <td>{item.dateTime}</td>

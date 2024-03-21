@@ -1,59 +1,73 @@
-import React, { useEffect, useState } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Loader from "../Common/Loader";
 import "./User.css";
+import {FormDataContext} from "../FormDataContext";
 const ActivityEdit = () => {
-  const [activity, setActivity] = useState([]);
+  let [activity, setActivity] = useState([]);
   const [error, setError] = useState(null);
+  const { formData } = useContext(FormDataContext);
   const [isLoading, setIsLoading] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
-  const getActivityApi = "http://192.168.100.42:8085/users-activities";
+  const getActivityApi = "http://localhost:8080/front/UserActivity";
 
   useEffect(() => {
     getUser();
   }, []);
 
   const getUser = () => {
-    fetch(getActivityApi.concat("/") + id)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setActivity(data);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+    const { name, password } = formData;
+    fetch(getActivityApi.concat("/") + id,
+        {
+          method: "GET",
+          headers: {
+            'Authorization': 'Basic ' + btoa(`${name}:${password}`)
+          }
+        })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          setActivity(data);
+        })
+        .catch((err) => {
+          console.log(err.message);
+          navigate("/login");
+        });
   };
 
   const handelInput = (e) => {
     e.preventDefault();
     const { name, value } = e.target;
-    console.log(name, value);
     setActivity({ ...activity, [name]: value });
   };
 
   const handelSubmit = (e) => {
     e.preventDefault();
-
+    setIsLoading(true);
+    const { name, password } = formData;
+    activity = Object.assign({}, activity, { id: id });
+    console.log("Activity: " + JSON.stringify(activity));
     fetch(getActivityApi, {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json",
+        'Authorization': 'Basic ' + btoa(`${name}:${password}`)
       },
       body: JSON.stringify(activity),
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        setIsLoading(true);
-        navigate("/users-activities");
-      })
-      .catch((error) => {
-        setError(error.message);
-        setIsLoading(false);
-      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          setIsLoading(true);
+          navigate("/users-activities");
+        })
+        .catch((error) => {
+          setError(error.message);
+          console.log(error.message);
+          setIsLoading(false);
+          navigate("/login");
+        })
   };
 
   return (
@@ -64,6 +78,7 @@ const ActivityEdit = () => {
         <p>Edit Form</p>
       </div>
       <form onSubmit={handelSubmit}>
+        <input type={"hidden"} value={activity.id} name={"id"} onChange={handelInput}></input>
         <div className="mb-3">
           <label for="name" className="form-label">
             Description
@@ -74,32 +89,6 @@ const ActivityEdit = () => {
             id="name"
             name="description"
             value={activity.description}
-            onChange={handelInput}
-          />
-        </div>
-        <div className="mb-3 mt-3">
-          <label for="surname" className="form-label">
-            Date and time
-          </label>
-          <input
-            type="datetime-local"
-            className="form-control"
-            id="surname"
-            name="dateTime"
-            value={activity.dateTime}
-            onChange={handelInput}
-          />
-        </div>
-        <div className="mb-3">
-          <label for="age" className="form-label">
-            User ID
-          </label>
-          <input
-            type="number"
-            className="form-control"
-            id="age"
-            name="userId"
-            value={activity.userId}
             onChange={handelInput}
           />
         </div>

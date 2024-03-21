@@ -1,22 +1,28 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, {useContext, useEffect, useState} from "react";
+import {Link, useNavigate} from "react-router-dom";
 import Loader from "../Common/Loader";
+import {FormDataContext} from "../FormDataContext";
 
 const ShowUser = () => {
-  const userListApi = "http://192.168.100.42:8085/users";
-
+  const userListApi = "http://localhost:8080/front/Users";
+  const navigate = useNavigate()
   const [user, setUser] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-
+  const { formData } = useContext(FormDataContext);
+  console.log(formData);
   const handelDelete = async (id) => {
     console.log("id : -", id);
+    const { name, password } = formData;
     setIsLoading(true);
     try {
-      const response = await fetch(userListApi.concat("?id=") + id, {
-        method: "DELETE",
+      const response = await fetch(userListApi.concat("/") + id,
+          {
+                method: "DELETE",
+          headers: {
+        'Authorization': 'Basic ' + btoa(`${name}:${password}`)
+        }
       });
-      console.log(response);
       setUser(user.filter((item) => item.id !== id));
     } catch (error) {
       setError(error.message);
@@ -30,14 +36,20 @@ const ShowUser = () => {
   }, []);
 
   const getUsers = () => {
-    fetch(userListApi)
+    const { name, password } = formData;
+    console.log("Name " + name + " " + password);
+    fetch(userListApi, {
+      headers: {
+        'Authorization': 'Basic ' + btoa(`${name}:${password}`)
+      }
+    })
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
         setUser(data);
       })
       .catch((err) => {
-        console.log(err.message);
+        navigate("/login");
       });
   };
 
@@ -51,7 +63,6 @@ const ShowUser = () => {
         <table className="table table-striped">
           <thead>
             <tr>
-              <th>ID</th>
               <th>Name</th>
               <th>Surname</th>
               <th>Age</th>
@@ -62,7 +73,6 @@ const ShowUser = () => {
             {user?.map((item) => {
               return (
                 <tr key={item.id}>
-                  <td>{item.id}</td>
                   <td>{item.name}</td>
                   <td>{item.surname}</td>
                   <td>{item.age}</td>
