@@ -1,23 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Loader from "../Common/Loader";
 import "./User.css";
-import { Url } from '../../constants/global';
-
+import {FormDataContext} from "../FormDataContext";
 const EditUser = () => {
+  const userListApi = "http://localhost:8080/front/Users";
+  const { formData } = useContext(FormDataContext);
   const [user, setUser] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
-  const getUserApi = `${Url}/users`;
 
   useEffect(() => {
     getUser();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const getUser = () => {
-    fetch(getUserApi.concat("/") + id)
+    const { name, password } = formData;
+    fetch(userListApi.concat("/") + id,
+        {
+          method: "GET",
+          headers: {
+            'Authorization': 'Basic ' + btoa(`${name}:${password}`)
+          }
+        })
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -25,23 +32,24 @@ const EditUser = () => {
       })
       .catch((err) => {
         console.log(err.message);
+        navigate("/login");
       });
   };
 
   const handelInput = (e) => {
     e.preventDefault();
     const { name, value } = e.target;
-    console.log(name, value);
     setUser({ ...user, [name]: value });
   };
 
   const handelSubmit = (e) => {
     e.preventDefault();
-
-    fetch(getUserApi, {
+    setIsLoading(true);
+    const { name, password } = formData;
+    fetch(userListApi, {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json",
+        'Authorization': 'Basic ' + btoa(`${name}:${password}`)
       },
       body: JSON.stringify(user),
     })
@@ -54,7 +62,9 @@ const EditUser = () => {
       })
       .catch((error) => {
         setError(error.message);
+        console.log(error.message);
         setIsLoading(false);
+        navigate("/login");
       })
   };
 
